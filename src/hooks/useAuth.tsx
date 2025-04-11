@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword, 
   signOut, 
   onAuthStateChanged,
-  User 
+  User,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useNavigate } from 'react-router-dom';
@@ -81,5 +82,23 @@ export const useAuth = () => {
     }
   };
 
-  return { user, loading, signUp, login, logout };
+  const resetPassword = async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast({
+        title: "E-posta Gönderildi",
+        description: "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
+      });
+      return true;
+    } catch (error: any) {
+      toast({
+        title: "Şifre Sıfırlama Hatası",
+        description: error.message,
+        variant: "destructive"
+      });
+      throw error;
+    }
+  };
+
+  return { user, loading, signUp, login, logout, resetPassword };
 };

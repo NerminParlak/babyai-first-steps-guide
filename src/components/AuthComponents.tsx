@@ -236,12 +236,13 @@ export const ForgotPasswordForm = () => {
   const [sent, setSent] = useState(false);
   const { resetPassword } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       await resetPassword(email);
+      setSent(true);
       // Başarılı şifre sıfırlama useAuth içinde yapılıyor
     } catch (error) {
       // Hata işleme useAuth içinde yapılıyor
