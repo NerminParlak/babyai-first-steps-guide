@@ -2,14 +2,17 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
+// Firebase yapılandırma bilgileri
+// Bu bilgiler Firebase konsolundan alınmalıdır
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAq1bOJJFT5loIH0P6nqOsIgxJvG8aFkwI",
+  authDomain: "babyai-demo.firebaseapp.com",
+  projectId: "babyai-demo",
+  storageBucket: "babyai-demo.appspot.com",
+  messagingSenderId: "469396964380",
+  appId: "1:469396964380:web:2b50c48bab797fcea9e061"
 };
 
+// Firebase uygulamasının başlatılması
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

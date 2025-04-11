@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Apple, Mail, AlertCircle } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export const SocialAuthButtons = () => {
   const navigate = useNavigate();
@@ -59,20 +59,21 @@ export const EmailLoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login process
-    setTimeout(() => {
+    try {
+      await login(email, password);
+      // Başarılı giriş useAuth içinde yapılıyor
+    } catch (error) {
+      // Hata işleme useAuth içinde yapılıyor
+      console.error("Giriş hatası:", error);
+    } finally {
       setIsLoading(false);
-      toast({
-        title: "Giriş Başarılı",
-        description: "BabyAI'ya hoş geldiniz!",
-      });
-      navigate("/home");
-    }, 1500);
+    }
   };
 
   return (
@@ -141,20 +142,21 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { signUp } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate registration process
-    setTimeout(() => {
+    try {
+      await signUp(email, password);
+      // Başarılı kayıt useAuth içinde yapılıyor
+    } catch (error) {
+      // Hata işleme useAuth içinde yapılıyor
+      console.error("Kayıt hatası:", error);
+    } finally {
       setIsLoading(false);
-      toast({
-        title: "Kayıt Başarılı",
-        description: "BabyAI'ya hoş geldiniz!",
-      });
-      navigate("/home");
-    }, 1500);
+    }
   };
 
   return (
@@ -232,20 +234,21 @@ export const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const { resetPassword } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate forgot password process
-    setTimeout(() => {
+    try {
+      await resetPassword(email);
+      // Başarılı şifre sıfırlama useAuth içinde yapılıyor
+    } catch (error) {
+      // Hata işleme useAuth içinde yapılıyor
+      console.error("Şifre sıfırlama hatası:", error);
+    } finally {
       setIsLoading(false);
-      setSent(true);
-      toast({
-        title: "E-posta Gönderildi",
-        description: "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.",
-      });
-    }, 1500);
+    }
   };
 
   return (
